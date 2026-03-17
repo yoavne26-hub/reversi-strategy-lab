@@ -8,9 +8,9 @@ At its core, this project sits at the intersection of gameplay, analytics, and p
 
 ## Overview
 
-The project is built with Python, Flask, and vanilla JavaScript, and is structured as a multi-page product rather than a single game screen. It supports regular gameplay, strategy benchmarking, replayable finished matches, and move-by-move analysis inside one connected experience.
+This project did not start as a web app. It started as a small object-oriented programming exercise: a terminal-based Reversi game built in Python as a way to practice structuring logic, game state, and rules cleanly. Later, after learning more about algorithms and continuing to build with coding agents that helped me move faster on both the backend and frontend, I expanded it into a full browser-based application using Flask and vanilla JavaScript.
 
-What makes it interesting to me is that the same system can be approached from different angles. You can open it as a game, as a strategy comparison tool, or as an interface for exploring how different AI approaches behave under the same rules.
+From there, the project grew in the direction that interests me most. Because I already enjoy analysis in sports and games, and had previous experience with analytics and simulation-oriented thinking, I started treating the game as more than something to play. I used game statistics, charts, and repeated AI matchups to build the Simulation Lab, turning the project into a space for strategy comparison and experimentation. That part was also influenced by knowledge from simulation programming, especially the idea of running repeated controlled scenarios and comparing outcomes across many games. The result is a multi-page product that can be approached from several angles: as a playable strategy game, as an AI testing environment, and as an analytics-focused interface for exploring how different strategies behave under the same rules.
 
 ## What the Project Includes
 
