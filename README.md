@@ -116,7 +116,7 @@ From a portfolio perspective, the project reflects the kind of work I am most in
 
 For installation, launch instructions, and troubleshooting, see:
 
-- [Local Setup Guide](ReversiGame/reversi/docs/local-setup.md)
+- [Local Setup Guide](ReversiGame/local-setup.md)
 
 ## Testing
 
@@ -166,15 +166,15 @@ play_reversi.bat
 
 The Home page introduces the project as more than a playable Reversi clone. It presents the app as a multi-surface product with gameplay, AI benchmarking, and analytics-oriented exploration.
 
-![Home Landing Page](ReversiGame/reversiGame/assets/screenshots/home/homepage.png)
+![Home Landing Page](ReversiGame/assets/screenshots/home/homepage.png)
 
 *Portfolio-style landing page with direct navigation to gameplay, simulation benchmarking, and settings.*
 
-![Home Page Overview](ReversiGame/reversiGame/assets/screenshots/home/homepage2.png)
+![Home Page Overview](ReversiGame/assets/screenshots/home/homepage2.png)
 
 *Home page overview presenting the product structure, AI ladder, and core analytical value of the project.*
 
-![About the Project Section](ReversiGame/reversiGame/assets/screenshots/home/aboutme.png)
+![About the Project Section](ReversiGame/assets/screenshots/home/aboutme.png)
 
 *Project motivation section explaining the engineering, analytics, and product perspective behind the build.*
 
@@ -182,15 +182,15 @@ The Home page introduces the project as more than a playable Reversi clone. It p
 
 The Play page covers the full gameplay loop: match setup, live board interaction, move tracking, and replay support for completed games.
 
-![Play Setup Screen](ReversiGame/reversiGame/assets/screenshots/play/play.png)
+![Play Setup Screen](ReversiGame/assets/screenshots/play/play.png)
 
 *Play setup screen with mode selection, side choice, and AI difficulty controls.*
 
-![Live Gameplay Board](ReversiGame/reversiGame/assets/screenshots/play/gameplay.png)
+![Live Gameplay Board](ReversiGame/assets/screenshots/play/gameplay.png)
 
 *Live match view showing the board, current score, active turn, and move timeline with flip counts.*
 
-![Replay Mode](ReversiGame/reversiGame/assets/screenshots/play/playreplay.png)
+![Replay Mode](ReversiGame/assets/screenshots/play/playreplay.png)
 
 *Replay mode for reviewing completed matches move by move with synchronized board and timeline history.*
 
@@ -198,11 +198,11 @@ The Play page covers the full gameplay loop: match setup, live board interaction
 
 Completed games transition into a post-game analysis surface with summary metrics and progression charts, turning each match into something that can be reviewed rather than only observed.
 
-![Completed Match View](ReversiGame/reversiGame/assets/screenshots/play/playcomplete.png)
+![Completed Match View](ReversiGame/assets/screenshots/play/playcomplete.png)
 
 *Completed match view with final board state, replay controls, and post-game summary access.*
 
-![Post-Game Progression Chart](ReversiGame/reversiGame/assets/screenshots/play/playgraph.png)
+![Post-Game Progression Chart](ReversiGame/assets/screenshots/play/playgraph.png)
 
 *Post-game progression chart showing board control over time across the full match.*
 
@@ -210,15 +210,15 @@ Completed games transition into a post-game analysis surface with summary metric
 
 The Simulation Lab turns the project into an AI experimentation workspace rather than only a playable board game. It supports repeated browser-based benchmark runs, live progress tracking, remembered comparisons, and matchup inspection tools.
 
-![Simulation Lab Overview](ReversiGame/reversiGame/assets/screenshots/lab/lab.png)
+![Simulation Lab Overview](ReversiGame/assets/screenshots/lab/lab.png)
 
 *Simulation Lab overview with benchmark controls, live progress tracking, and current-run status.*
 
-![Single Run Benchmark Results](ReversiGame/reversiGame/assets/screenshots/lab/singleruncompare.png)
+![Single Run Benchmark Results](ReversiGame/assets/screenshots/lab/singleruncompare.png)
 
 *Single benchmark result view summarizing win rates, score differential, move count, color rotation, and interpretation notes.*
 
-![Metric Guide Panel](ReversiGame/reversiGame/assets/screenshots/lab/metricguide.png)
+![Metric Guide Panel](ReversiGame/assets/screenshots/lab/metricguide.png)
 
 *Built-in metric guide explaining benchmark statistics and helping users interpret matchup results.*
 
@@ -226,15 +226,15 @@ The Simulation Lab turns the project into an AI experimentation workspace rather
 
 Remembered benchmark runs can be compared side by side through summary rankings, chart views, pairwise matchup inspection, and one representative measured game per run.
 
-![Remembered Comparison Workspace](ReversiGame/reversiGame/assets/screenshots/lab/multiruncompare.png)
+![Remembered Comparison Workspace](ReversiGame/assets/screenshots/lab/multiruncompare.png)
 
 *Remembered comparison workspace for reviewing stored benchmark runs, dominance signals, matchup matrix results, and representative-game drill-down.*
 
-![Win Rate Comparison Chart](ReversiGame/reversiGame/assets/screenshots/lab/winrate.png)
+![Win Rate Comparison Chart](ReversiGame/assets/screenshots/lab/winrate.png)
 
 *Comparison chart view showing how remembered benchmark runs differ in win-rate outcomes across strategy matchups.*
 
-![Representative Game Breakdown](ReversiGame/reversiGame/assets/screenshots/lab/labgamebreakdowncontrol.png)
+![Representative Game Breakdown](ReversiGame/assets/screenshots/lab/labgamebreakdowncontrol.png)
 
 *Representative game breakdown with move-by-move board-control analysis from a measured benchmark run.*
 
@@ -242,7 +242,7 @@ Remembered benchmark runs can be compared side by side through summary rankings,
 
 The Settings page gives the project a more complete product surface by combining local gameplay preferences with onboarding guidance and AI difficulty explanations.
 
-![Settings and How to Play](ReversiGame/reversiGame/assets/screenshots/settings/settings.png)
+![Settings and How to Play](ReversiGame/assets/screenshots/settings/settings.png)
 
 *Settings and onboarding page with local preferences, AI difficulty explanations, and a built-in gameplay guide.*
 
@@ -250,7 +250,6 @@ The Settings page gives the project a more complete product surface by combining
 
 Additional project notes are available in:
 
-- [Local Setup Guide](ReversiGame/reversi/docs/local-setup.md)
 - [Architecture Notes](ReversiGame/reversi/docs/architecture.md)
 - [API Notes](ReversiGame/reversi/docs/api.md)
 
