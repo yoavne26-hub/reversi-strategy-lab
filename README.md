@@ -112,6 +112,11 @@ From a portfolio perspective, the project reflects the kind of work I am most in
 - **pytest**
 - **Custom game engine and strategy heuristics**
 
+## Local Setup
+
+For installation, launch instructions, and troubleshooting, see:
+
+- [Local Setup Guide](reversi/docs/local-setup.md)
 
 ## Testing
 
@@ -240,12 +245,14 @@ The Settings page gives the project a more complete product surface by combining
 ![Settings and How to Play](ReversiGame/assets/screenshots/settings/settings.png)
 
 *Settings and onboarding page with local preferences, AI difficulty explanations, and a built-in gameplay guide.*
+
 ## Documentation
 
 Additional project notes are available in:
 
-- `reversi/docs/architecture.md`
-- `reversi/docs/api.md`
+- [Local Setup Guide](reversi/docs/local-setup.md)
+- [Architecture Notes](reversi/docs/architecture.md)
+- [API Notes](reversi/docs/api.md)
 
 ## Future Improvements
 
