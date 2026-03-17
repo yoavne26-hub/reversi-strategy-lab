@@ -359,10 +359,8 @@ Additional project notes are available in:
 - exportable benchmark summaries
 - tournament or ladder mode for repeated AI competitions
 - deeper visual analytics in the Lab
+- persistent benchmark storage through CSV export or relational SQL database integration
+- predictive modeling for estimating game outcomes based on strategy pairing and starting side
 - packaged desktop-style release for easier local distribution
 
-## Status
 
-- feature-complete enough for local use and portfolio presentation
-- structured for further analytics and AI experimentation
-- ready for GitHub upload with local Windows launch helpers included
