@@ -116,7 +116,7 @@ From a portfolio perspective, the project reflects the kind of work I am most in
 
 For installation, launch instructions, and troubleshooting, see:
 
-- [Local Setup Guide](ReversiGame/local-setup.md)
+- [Local Setup Guide](local-setup.md)
 
 ## Testing
 
