@@ -309,16 +309,35 @@ Completed games transition into a post-game analysis surface with summary metric
 
 ### Simulation Lab
 
-Screenshot placeholder for the benchmark runner, current-run metrics, and remembered comparison workspace.
+The Simulation Lab turns the project into an AI experimentation workspace rather than only a playable board game. It supports repeated browser-based benchmark runs, live progress tracking, remembered comparisons, and matchup inspection tools.
 
-<!-- TODO: Replace with a real screenshot -->
+![Simulation Lab Overview](ReversiGame/assets/screenshots/lab/lab.png)
+
+*Simulation Lab overview with benchmark controls, live progress tracking, and current-run status.*
+
+![Single Run Benchmark Results](ReversiGame/assets/screenshots/lab/singleruncompare.png)
+
+*Single benchmark result view summarizing win rates, score differential, move count, color rotation, and interpretation notes.*
+
+![Metric Guide Panel](ReversiGame/assets/screenshots/lab/metricguide.png)
+
+*Built-in metric guide explaining benchmark statistics and helping users interpret matchup results.*
 
 ### Matchup Matrix / Representative Breakdown
 
-Screenshot placeholder for the remembered-run matrix and representative-game drill-down.
+Remembered benchmark runs can be compared side by side through summary rankings, chart views, pairwise matchup inspection, and one representative measured game per run.
 
-<!-- TODO: Replace with a real screenshot -->
+![Remembered Comparison Workspace](ReversiGame/assets/screenshots/lab/multiruncompare.png)
 
+*Remembered comparison workspace for reviewing stored benchmark runs, dominance signals, matchup matrix results, and representative-game drill-down.*
+
+![Win Rate Comparison Chart](ReversiGame/assets/screenshots/lab/winrate.png)
+
+*Comparison chart view showing how remembered benchmark runs differ in win-rate outcomes across strategy matchups.*
+
+![Representative Game Breakdown](ReversiGame/assets/screenshots/lab/labgamebreakdowncontrol.png)
+
+*Representative game breakdown with move-by-move board-control analysis from a measured benchmark run.*
 ## Documentation
 
 Additional project notes are available in:
