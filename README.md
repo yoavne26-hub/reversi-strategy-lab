@@ -338,6 +338,14 @@ Remembered benchmark runs can be compared side by side through summary rankings,
 ![Representative Game Breakdown](ReversiGame/assets/screenshots/lab/labgamebreakdowncontrol.png)
 
 *Representative game breakdown with move-by-move board-control analysis from a measured benchmark run.*
+
+### Settings & How to Play
+
+The Settings page gives the project a more complete product surface by combining local gameplay preferences with onboarding guidance and AI difficulty explanations.
+
+![Settings and How to Play](ReversiGame/assets/screenshots/settings/settings.png)
+
+*Settings and onboarding page with local preferences, AI difficulty explanations, and a built-in gameplay guide.*
 ## Documentation
 
 Additional project notes are available in:
