@@ -281,15 +281,31 @@ The Home page introduces the project as more than a playable Reversi clone. It p
 
 ### Play Page
 
-Screenshot placeholder for the live Reversi board and match interface.
+The Play page covers the full gameplay loop: match setup, live board interaction, move tracking, and replay support for completed games.
 
-<!-- TODO: Replace with a real screenshot -->
+![Play Setup Screen](ReversiGame/assets/screenshots/play/play.png)
+
+*Play setup screen with mode selection, side choice, and AI difficulty controls.*
+
+![Live Gameplay Board](ReversiGame/assets/screenshots/play/gameplay.png)
+
+*Live match view showing the board, current score, active turn, and move timeline with flip counts.*
+
+![Replay Mode](ReversiGame/assets/screenshots/play/playreplay.png)
+
+*Replay mode for reviewing completed matches move by move with synchronized board and timeline history.*
 
 ### Post-Game Analytics
 
-Screenshot placeholder for the post-game summary and progression charts on the Play page.
+Completed games transition into a post-game analysis surface with summary metrics and progression charts, turning each match into something that can be reviewed rather than only observed.
 
-<!-- TODO: Replace with a real screenshot -->
+![Completed Match View](ReversiGame/assets/screenshots/play/playcomplete.png)
+
+*Completed match view with final board state, replay controls, and post-game summary access.*
+
+![Post-Game Progression Chart](ReversiGame/assets/screenshots/play/playgraph.png)
+
+*Post-game progression chart showing board control over time across the full match.*
 
 ### Simulation Lab
 
