@@ -267,15 +267,15 @@ play_reversi.bat
 
 The Home page introduces the project as more than a playable Reversi clone. It presents the app as a multi-surface product with gameplay, AI benchmarking, and analytics-oriented exploration.
 
-![Home Landing Page](assets/screenshots/home/homepage.png)
+![Home Landing Page](ReversiGame/assets/screenshots/home/homepage.png)
 
 *Portfolio-style landing page with direct navigation to gameplay, simulation benchmarking, and settings.*
 
-![Home Page Overview](assets/screenshots/home/homepage2.png)
+![Home Page Overview](ReversiGame/assets/screenshots/home/homepage2.png)
 
 *Home page overview presenting the product structure, AI ladder, and core analytical value of the project.*
 
-![About the Project Section](assets/screenshots/home/aboutme.png)
+![About the Project Section](ReversiGame/assets/screenshots/home/aboutme.png)
 
 *Project motivation section explaining the engineering, analytics, and product perspective behind the build.*
 
