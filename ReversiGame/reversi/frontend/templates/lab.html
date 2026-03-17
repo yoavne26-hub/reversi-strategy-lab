@@ -1,0 +1,319 @@
+{% extends "base.html" %}
+
+{% block title %}Reversi | Simulation Lab{% endblock %}
+
+{% block content %}
+  <section class="screen page-screen">
+    <div class="page-hero">
+      <p class="eyebrow">Simulation Lab</p>
+      <h1>Run AI Benchmarks in the Browser</h1>
+      <p class="subtitle">Benchmark the strategy ladder, inspect measured matchup strength, and drill into representative games from one compact analytics workspace.</p>
+    </div>
+
+    <div class="page-grid page-grid-2 lab-overview-grid">
+      <article class="page-card">
+        <p class="eyebrow">Lab Overview</p>
+        <h2>What the Lab Measures</h2>
+        <p>Run repeated AI-vs-AI simulations, compare win rates and score edges, and inspect how different strategies perform under fair color rotation.</p>
+      </article>
+      <article class="page-card">
+        <p class="eyebrow">Workspace Scope</p>
+        <h2>What You Can Inspect</h2>
+        <p>Single-run benchmark summaries, remembered comparison graphs, dominance signals, a pairwise matchup matrix, and one representative game drill-down per measured run.</p>
+      </article>
+    </div>
+
+    <section class="page-section">
+      <div class="page-grid page-grid-2 lab-grid">
+        <div class="lab-sidebar-column">
+          <article class="page-card">
+            <p class="eyebrow">Benchmark Controls</p>
+            <h2>Control Panel</h2>
+            <p class="lab-form-intro">Choose the matchup, set the game count, and run a fair color-balanced benchmark.</p>
+            <form id="labBenchmarkForm" class="lab-form">
+              <div class="lab-form-grid">
+                <label class="lab-field">
+                  <span>Strategy A</span>
+                  <div class="lab-select-wrap">
+                    <select id="labStrategyA" name="strategy_a">
+                      <option value="easy">Easy / Random</option>
+                      <option value="medium" selected>Medium / Greedy</option>
+                      <option value="advanced">Advanced / Hybrid</option>
+                      <option value="hard">Hard / Minimax</option>
+                    </select>
+                  </div>
+                  <small class="lab-field-hint">Reference side for score-difference reporting.</small>
+                </label>
+
+                <label class="lab-field">
+                  <span>Strategy B</span>
+                  <div class="lab-select-wrap">
+                    <select id="labStrategyB" name="strategy_b">
+                      <option value="easy">Easy / Random</option>
+                      <option value="medium">Medium / Greedy</option>
+                      <option value="advanced" selected>Advanced / Hybrid</option>
+                      <option value="hard">Hard / Minimax</option>
+                    </select>
+                  </div>
+                  <small class="lab-field-hint">Colors rotate automatically in multi-game runs.</small>
+                </label>
+
+                <label class="lab-field lab-field-compact">
+                  <span>Games</span>
+                  <input id="labNumGames" name="num_games" type="number" min="1" step="1" value="8">
+                  <small class="lab-field-hint">Single games are fast; larger batches are slower but more stable.</small>
+                </label>
+              </div>
+
+              <div class="lab-form-footer">
+                <p class="lab-form-footnote">Balanced color assignment keeps the matchup fair even when Black tends to move first.</p>
+                <button id="labRunBtn" class="btn btn-primary" type="submit">Run Benchmark</button>
+              </div>
+            </form>
+            <p id="labStatus" class="hint" aria-live="polite"></p>
+          </article>
+
+          <article class="page-card lab-guide-panel">
+            <p class="eyebrow">Metric Guide</p>
+            <h2>How to Read These Metrics</h2>
+            <p class="lab-guide-copy">Use this guide as context while reading the current run and the remembered comparison workspace. It explains what each headline metric means and how to interpret it without over-reading small batches.</p>
+            <div id="labMetricExplanations" class="lab-explainer-grid"></div>
+          </article>
+        </div>
+
+        <div class="lab-main-column">
+          <article class="page-card">
+          <p class="eyebrow">Results</p>
+          <h2>Current Run</h2>
+          <div id="labError" class="lab-error hidden" aria-live="polite"></div>
+          <div id="labLoading" class="lab-loading-panel hidden" aria-live="polite">
+            <div class="lab-loading-spinner" aria-hidden="true"></div>
+            <div class="lab-loading-copy">
+              <p class="lab-loading-label">Benchmark Running</p>
+              <h3 id="labLoadingTitle">Preparing matchup...</h3>
+              <p id="labLoadingBody" class="lab-loading-body">Setting up headless games.</p>
+              <div class="lab-loading-meta">
+                <div class="lab-loading-pill">
+                  <span class="lab-loading-pill-label">Matchup</span>
+                  <strong id="labLoadingMatchup">-</strong>
+                </div>
+                <div class="lab-loading-pill">
+                  <span class="lab-loading-pill-label">Games</span>
+                  <strong id="labLoadingGames">-</strong>
+                </div>
+                <div class="lab-loading-pill">
+                  <span class="lab-loading-pill-label">Estimated Time</span>
+                  <strong id="labLoadingEstimate">-</strong>
+                </div>
+              </div>
+              <div class="lab-progress-block">
+                <div class="lab-progress-topline">
+                  <span id="labLoadingProgressLabel">Completed 0 / 0 games</span>
+                  <strong id="labLoadingPercent">0%</strong>
+                </div>
+                <div class="lab-progress-track" aria-hidden="true">
+                  <div id="labLoadingProgressBar" class="lab-progress-fill"></div>
+                </div>
+                <p id="labLoadingEtaNote" class="lab-loading-note">ETA appears once enough completed games exist to estimate the remaining time honestly.</p>
+              </div>
+            </div>
+          </div>
+          <div id="labEmpty" class="lab-empty-state">
+            <p class="lab-empty-label">Ready to Benchmark</p>
+            <h3>Run a matchup to populate the dashboard</h3>
+            <p>You will get a verdict, compact benchmark stats, fairness signals, and charted summaries for the active run.</p>
+            <div class="lab-empty-points">
+              <span>Balanced color assignment</span>
+              <span>Repeated headless simulations</span>
+              <span>Measured comparison insights</span>
+            </div>
+          </div>
+          <div id="labResults" class="hidden">
+            <div id="labVerdict" class="lab-verdict"></div>
+            <div id="labPrimaryMetrics" class="lab-results-grid lab-results-grid-primary"></div>
+            <div id="labChartsSection" class="lab-chart-grid">
+              <div class="lab-subcard lab-graph-card">
+                <div class="lab-chart-head">
+                  <div>
+                    <h3 id="labGraphTitle">Win Rate</h3>
+                    <p id="labGraphDescription" class="lab-chart-copy">A quick view of how often each side won, plus how many runs finished level.</p>
+                  </div>
+                  <div id="labGraphPicker" class="lab-graph-picker" role="tablist" aria-label="Benchmark graph selection">
+                    <button type="button" class="choice active" data-graph="win_rate" aria-pressed="true">Win Rate</button>
+                    <button type="button" class="choice" data-graph="avg_score" aria-pressed="false">Avg Score</button>
+                    <button type="button" class="choice" data-graph="score_diff" aria-pressed="false">Score Diff</button>
+                  </div>
+                </div>
+                <div id="labGraphChart" class="lab-chart" aria-live="polite"></div>
+              </div>
+            </div>
+            <div id="labChartsNote" class="lab-subcard lab-chart-threshold-note hidden"></div>
+            <div class="lab-secondary-grid">
+              <div class="lab-subcard lab-matchup-card">
+                <h3>Matchup Detail</h3>
+                <div id="labDetails" class="lab-kv-list"></div>
+              </div>
+              <div class="lab-subcard">
+                <h3>Average Scoring</h3>
+                <div id="labScores" class="lab-kv-list"></div>
+              </div>
+              <div class="lab-subcard">
+                <h3>Color Rotation</h3>
+                <div id="labColorSplit" class="lab-kv-list"></div>
+              </div>
+              <div class="lab-subcard">
+                <h3>Starting-Side Edge</h3>
+                <p class="lab-chart-copy">Black moves first in Reversi. In multi-game runs, color rotation helps isolate whether the opening side showed a measurable edge.</p>
+                <div id="labFairness" class="lab-kv-list"></div>
+              </div>
+              <div class="lab-subcard">
+                <h3>Interpretation Notes</h3>
+                <div id="labNotes" class="lab-notes-list"></div>
+              </div>
+            </div>
+          </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <article class="page-card">
+        <div class="lab-chart-head">
+          <div>
+            <p class="eyebrow">Remembered Comparisons</p>
+            <h2>Measured Comparison Workspace</h2>
+            <p class="lab-chart-copy">Select completed runs from this session to compare measured matchups, inspect ranking signals, and drill into one representative game.</p>
+          </div>
+          <button id="labClearRememberedBtn" class="btn btn-ghost hidden" type="button">Clear Remembered Comparisons</button>
+        </div>
+
+        <div id="labRememberedEmpty" class="lab-empty-state">
+          <p class="lab-empty-label">No Remembered Runs Yet</p>
+          <h3>Finish a benchmark to build the comparison workspace</h3>
+          <p>Completed runs stay available for this tab session, so you can compare measured matchups without rerunning them immediately.</p>
+        </div>
+
+        <div id="labRememberedWorkspace" class="hidden">
+          <div id="labRememberedList" class="lab-remembered-list"></div>
+          <div class="lab-analytics-grid">
+            <div id="labRankingPanel" class="lab-subcard lab-ranking-panel hidden">
+              <div class="lab-chart-head">
+                <div>
+                  <h3>Measured Dominance Snapshot</h3>
+                  <p class="lab-chart-copy">A session-level ranking built only from remembered measured runs. It is an aggregate inference from your recorded benchmarks, not proof of unrun pairings.</p>
+                </div>
+              </div>
+              <div id="labRankingList" class="lab-ranking-list"></div>
+            </div>
+            <div id="labMatrixPanel" class="lab-subcard lab-matrix-panel hidden">
+              <div class="lab-chart-head">
+                <div>
+                  <h3>Pairwise Matchup Matrix</h3>
+                  <p class="lab-chart-copy">Measured matchups only. Each cell is average score differential from the row strategy's perspective: positive favors the row strategy, negative favors the column strategy, and empty cells mean no run is stored for that pairing.</p>
+                </div>
+              </div>
+              <div class="lab-matrix-wrap">
+                <div id="labMatrixTable" class="lab-matrix-table"></div>
+              </div>
+            </div>
+          </div>
+          <div class="lab-analysis-grid">
+            <div class="lab-analysis-column">
+              <div id="labComparisonEmpty" class="lab-subcard lab-comparison-empty">
+                <h3>Select remembered runs to compare</h3>
+                <p>Choose one or more remembered benchmarks above to populate the comparison graph with measured runs from this session.</p>
+              </div>
+              <div id="labComparisonPanel" class="lab-subcard hidden">
+                <div class="lab-chart-head">
+                  <div>
+                    <h3 id="labComparisonGraphTitle">Win Rate</h3>
+                    <p id="labComparisonGraphDescription" class="lab-chart-copy">Compare how often each remembered benchmark ended in Strategy A wins, Strategy B wins, or draws.</p>
+                  </div>
+                  <div id="labComparisonGraphPicker" class="lab-graph-picker" role="tablist" aria-label="Remembered comparison graph selection">
+                    <button type="button" class="choice active" data-graph="win_rate" aria-pressed="true">Win Rate</button>
+                    <button type="button" class="choice" data-graph="avg_score" aria-pressed="false">Avg Score</button>
+                    <button type="button" class="choice" data-graph="score_diff" aria-pressed="false">Score Diff</button>
+                  </div>
+                </div>
+                <p class="lab-chart-copy lab-comparison-measured-note">Only the selected remembered benchmarks are plotted here. The x-axis labels are measured runs from this session, not inferred pairings.</p>
+                <div class="lab-comparison-legend">
+                  <span class="lab-chart-label">
+                    <span class="lab-chart-swatch tone-a"></span>
+                    Strategy A
+                  </span>
+                  <span class="lab-chart-label">
+                    <span class="lab-chart-swatch tone-b"></span>
+                    Strategy B
+                  </span>
+                  <span class="lab-chart-label">
+                    <span class="lab-chart-swatch tone-draw"></span>
+                    Draw / Even
+                  </span>
+                </div>
+                <div id="labComparisonGraphEmpty" class="timeline-empty hidden">No comparison graph is available for the selected remembered runs.</div>
+                <svg id="labComparisonGraphChart" class="lab-comparison-chart" viewBox="0 0 760 340" role="img" aria-label="Remembered benchmark comparison graph"></svg>
+              </div>
+            </div>
+            <div class="lab-analysis-column">
+              <div id="labRepresentativeEmpty" class="lab-subcard lab-comparison-empty">
+                <h3>Representative Game Breakdown</h3>
+                <p>Select a remembered run to inspect one measured example game from that batch. This view shows one sample game, not a batch average.</p>
+              </div>
+              <div id="labRepresentativePanel" class="lab-subcard hidden">
+                <div class="lab-chart-head">
+                  <div>
+                    <h3>Representative Game Breakdown</h3>
+                    <p class="lab-chart-copy">One measured sample game from the selected remembered run, included to show move-by-move shape rather than batch averages.</p>
+                  </div>
+                  <div id="labRepresentativeGraphPicker" class="lab-graph-picker" role="tablist" aria-label="Representative game graph selection">
+                    <button type="button" class="choice active" data-graph="control" aria-pressed="true">Control</button>
+                    <button type="button" class="choice" data-graph="weighted_flips" aria-pressed="false">Weighted Flips</button>
+                    <button type="button" class="choice" data-graph="flips" aria-pressed="false">Flips</button>
+                    <button type="button" class="choice" data-graph="flip_ratio" aria-pressed="false">Flip Ratio</button>
+                  </div>
+                </div>
+                <div id="labRepresentativeSourceRow" class="lab-representative-source-row hidden">
+                  <label class="lab-field lab-representative-source-field">
+                    <span>Inspect representative game from:</span>
+                    <div class="lab-select-wrap">
+                      <select id="labRepresentativeSource"></select>
+                    </div>
+                  </label>
+                </div>
+                <p id="labRepresentativeRunLabel" class="lab-chart-copy lab-representative-run-label"></p>
+                <div id="labRepresentativeSummary" class="lab-results-grid lab-results-grid-primary lab-representative-summary"></div>
+                <div class="postgame-chart-wrap lab-representative-chart-wrap">
+                  <div class="lab-chart-head">
+                    <div>
+                      <h4 id="labRepresentativeGraphTitle">Board Control Over Time</h4>
+                      <p id="labRepresentativeGraphDescription" class="lab-chart-copy">Shows each side's share of discs on the board after every move.</p>
+                    </div>
+                  </div>
+                  <div class="postgame-chart-legend">
+                    <span class="postgame-legend-item">
+                      <span class="postgame-legend-swatch tone-black"></span>
+                      Black
+                    </span>
+                    <span class="postgame-legend-item">
+                      <span class="postgame-legend-swatch tone-white"></span>
+                      White
+                    </span>
+                  </div>
+                  <div id="labRepresentativeGraphEmpty" class="timeline-empty hidden">No representative progression data is available for this remembered run.</div>
+                  <svg id="labRepresentativeGraphChart" class="postgame-chart" viewBox="0 0 680 260" role="img" aria-label="Representative game progression chart"></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <div id="labTooltip" class="lab-tooltip hidden" role="tooltip" aria-hidden="true"></div>
+  </section>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='lab.js') }}"></script>
+{% endblock %}

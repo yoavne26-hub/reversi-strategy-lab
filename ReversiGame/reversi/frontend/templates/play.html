@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% block title %}Reversi | Play{% endblock %}
+
+{% block content %}
+  <section id="homeScreen" class="screen screen-home">
+    <div class="home-card">
+      <div class="brand">
+        <p class="eyebrow">Classic Strategy Game</p>
+        <h1>Reversi</h1>
+        <p class="subtitle">Start a local match or challenge the AI from the dedicated play page.</p>
+      </div>
+
+      <div class="config-grid">
+        <div class="field">
+          <label>Mode</label>
+          <div id="mode" class="choice-group" role="radiogroup" aria-label="Game mode">
+            <button type="button" class="choice active" data-value="pva" aria-pressed="true">
+              <span class="choice-title">Vs Computer</span>
+              <span class="choice-sub">Play against AI</span>
+            </button>
+            <button type="button" class="choice" data-value="pvp" aria-pressed="false">
+              <span class="choice-title">Local PvP</span>
+              <span class="choice-sub">Two players on one board</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="field hidden" id="undoToggleRow">
+          <label>Extras</label>
+          <label class="switch-row" for="enableUndo">
+            <span>Enable Undo &amp; Replay</span>
+            <span class="switch">
+              <input id="enableUndo" type="checkbox">
+              <span class="switch-slider"></span>
+            </span>
+          </label>
+        </div>
+
+        <div class="field" id="humanRow">
+          <label>Human Side</label>
+          <div id="humanColor" class="choice-group choice-group-2" role="radiogroup" aria-label="Human side">
+            <button type="button" class="choice active" data-value="black" aria-pressed="true">
+              <span class="choice-title">Black</span>
+              <span class="choice-sub">Moves first</span>
+            </button>
+            <button type="button" class="choice" data-value="white" aria-pressed="false">
+              <span class="choice-title">White</span>
+              <span class="choice-sub">Moves second</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="field" id="difficultyRow">
+          <label>Difficulty</label>
+          <div id="difficulty" class="choice-group choice-group-4" role="radiogroup" aria-label="Difficulty">
+            <button type="button" class="choice" data-value="easy" aria-pressed="false">
+              <span class="choice-title">Easy</span>
+            </button>
+            <button type="button" class="choice active" data-value="medium" aria-pressed="true">
+              <span class="choice-title">Medium</span>
+            </button>
+            <button type="button" class="choice" data-value="advanced" aria-pressed="false">
+              <span class="choice-title">Advanced</span>
+            </button>
+            <button type="button" class="choice" data-value="hard" aria-pressed="false">
+              <span class="choice-title">Hard</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-actions">
+        <button id="startBtn" class="btn btn-primary" type="button">Start Game</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="gameScreen" class="screen screen-game hidden">
+    <div class="game-stage">
+      <aside class="hud-card">
+        <div class="hud-top">
+          <p class="eyebrow">Live Match</p>
+          <div class="hud-title-row">
+            <h2>Reversi</h2>
+            <span id="difficultyBadge" class="difficulty-badge hidden" aria-label="Current difficulty"></span>
+          </div>
+        </div>
+
+        <div class="scoreboard">
+          <div class="score-tile score-black">
+            <span class="chip chip-black"></span>
+            <div>
+              <div class="score-label">Black</div>
+              <div id="scoreBlack" class="score-value">2</div>
+            </div>
+          </div>
+          <div class="score-tile score-white">
+            <span class="chip chip-white"></span>
+            <div>
+              <div class="score-label">White</div>
+              <div id="scoreWhite" class="score-value">2</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="status" class="status-card">Turn: Black</div>
+        <div id="replayBanner" class="replay-banner hidden">REPLAY MODE - moves disabled</div>
+        <div id="replayStatus" class="replay-status hidden">Replay: 1 / 1</div>
+        <div id="turnHint" class="hint" aria-live="polite"></div>
+
+        <div class="hud-actions">
+          <button id="restartBtn" class="btn btn-primary" type="button">Restart</button>
+          <button id="quitBtn" class="btn btn-ghost" type="button">Quit to Home</button>
+        </div>
+
+        <div id="undoReplayControls" class="undo-replay-controls hidden">
+          <button id="undoBtn" class="btn" type="button">Undo</button>
+          <button id="enterReplayBtn" class="btn" type="button">Replay</button>
+          <div id="replayControls" class="replay-controls hidden">
+            <button id="replayBackBtn" class="btn btn-ghost" type="button">Step Back</button>
+            <button id="replayForwardBtn" class="btn btn-ghost" type="button">Step Forward</button>
+            <button id="replayExitBtn" class="btn" type="button">Exit Replay</button>
+          </div>
+        </div>
+      </aside>
+
+      <main class="board-panel">
+        <div class="board-frame">
+          <div class="board-coords">
+            <div class="coord-corner" aria-hidden="true"></div>
+            <div class="col-labels" aria-hidden="true">
+              <span>A</span><span>B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span>
+            </div>
+            <div class="row-labels" aria-hidden="true">
+              <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span>
+            </div>
+            <div id="board" class="board" role="grid" aria-label="Reversi board"></div>
+          </div>
+        </div>
+      </main>
+
+      <aside class="timeline-card">
+        <div class="timeline-head">
+          <p class="eyebrow">Timeline</p>
+          <h2>Moves</h2>
+        </div>
+        <div id="moveTimeline" class="timeline-list" aria-live="polite"></div>
+      </aside>
+    </div>
+
+    <section id="postGameAnalysis" class="postgame-panel hidden" aria-live="polite">
+      <div class="postgame-head">
+        <p class="eyebrow">Post-Game Analysis</p>
+        <h2>Match Summary</h2>
+        <p class="subtitle">A compact view of the finished match plus progression metrics from the shared analysis layer.</p>
+      </div>
+
+      <div id="postGameSummary" class="page-grid page-grid-4 postgame-summary-grid"></div>
+
+      <div class="page-grid page-grid-2 postgame-detail-grid">
+        <article class="page-card postgame-card">
+          <p class="eyebrow">Highlights</p>
+          <h3>Finished Match</h3>
+          <div id="postGameHighlights" class="postgame-kv-list"></div>
+        </article>
+
+        <article class="page-card postgame-card">
+          <p class="eyebrow">Side Averages</p>
+          <h3>Black vs White</h3>
+          <p class="postgame-copy">Average control uses every visible move in the finished game. Move-owned averages use only the turns where that side actually moved.</p>
+          <div id="postGameSideAverages" class="postgame-side-grid"></div>
+        </article>
+      </div>
+
+      <article class="page-card postgame-card">
+        <div class="postgame-chart-head">
+          <div>
+            <p class="eyebrow">Progression</p>
+            <h3 id="postGameGraphTitle">Weighted Board Control Over Time</h3>
+          </div>
+          <div id="postGameGraphPicker" class="postgame-graph-picker" role="tablist" aria-label="Post-game graph selection">
+            <button type="button" class="choice active" data-graph="control" aria-pressed="true">Control</button>
+            <button type="button" class="choice" data-graph="weighted_flips" aria-pressed="false">Weighted Flips</button>
+            <button type="button" class="choice" data-graph="flips" aria-pressed="false">Flips</button>
+            <button type="button" class="choice" data-graph="flip_ratio" aria-pressed="false">Flip Ratio</button>
+          </div>
+        </div>
+        <p id="postGameGraphDescription" class="postgame-copy">Weighted control tracks the positional share held by each side after every move, using the engine's board-weight model.</p>
+        <div class="postgame-chart-wrap">
+          <div class="postgame-chart-legend">
+            <span class="postgame-legend-item">
+              <span class="postgame-legend-swatch tone-black"></span>
+              Black
+            </span>
+            <span class="postgame-legend-item">
+              <span class="postgame-legend-swatch tone-white"></span>
+              White
+            </span>
+          </div>
+          <div id="postGameGraphEmpty" class="timeline-empty hidden">No progression data is available for this finished view.</div>
+          <svg id="postGameGraphChart" class="postgame-chart" viewBox="0 0 680 260" role="img" aria-label="Post-game progression graph"></svg>
+        </div>
+      </article>
+    </section>
+
+    <div id="winOverlay" class="win-overlay hidden" aria-hidden="true">
+      <div class="win-backdrop"></div>
+      <div class="win-modal" role="dialog" aria-modal="true" aria-labelledby="winTitle">
+        <div id="winIcon" class="win-icon" aria-hidden="true">✦</div>
+        <p class="eyebrow">Match Complete</p>
+        <h2 id="winTitle" class="win-title">Black Wins!</h2>
+        <p id="winSubtitle" class="win-subtitle">Final score: Black 0 - White 0</p>
+        <div class="win-actions">
+          <button id="winPlayAgainBtn" class="btn btn-primary" type="button">Play Again</button>
+          <button id="winAnalyticsBtn" class="btn" type="button">View Analytics</button>
+          <button id="winMenuBtn" class="btn btn-ghost" type="button">Go to Menu</button>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+{% endblock %}

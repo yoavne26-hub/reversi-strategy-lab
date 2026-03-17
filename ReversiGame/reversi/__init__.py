@@ -1,0 +1,2 @@
+"""Reversi web application package."""
+
