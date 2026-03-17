@@ -133,3 +133,193 @@ If the batch files do not work in your environment, use the manual setup path:
 ```bash
 python -m pip install -r requirements.txt
 python -m waitress --listen=127.0.0.1:5000 wsgi:app
+
+Then open:
+
+```text
+http://127.0.0.1:5000/
+```
+
+### Development Server Fallback
+
+For local development only:
+
+```bash
+python run.py
+```
+
+This uses Flask's development server rather than Waitress.
+
+## Troubleshooting
+
+### Python is not recognized
+
+- Reinstall Python 3 and enable **Add Python to PATH**
+- Restart the terminal after installation
+- Verify with:
+
+```bash
+python --version
+```
+
+If `python` is unavailable on Windows but `py` exists, the batch scripts will still try `py -3`.
+
+### Dependencies are missing
+
+Run:
+
+```bash
+install_requirements.bat
+```
+
+or:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+### The browser did not open automatically
+
+The server may still be running successfully. Open this URL manually:
+
+```text
+http://127.0.0.1:5000/
+```
+
+### The port is already in use
+
+If `127.0.0.1:5000` is busy:
+
+- close the existing process using that port
+- or run the app manually on another port by changing the Waitress command
+
+Example:
+
+```bash
+python -m waitress --listen=127.0.0.1:5001 wsgi:app
+```
+
+Then open:
+
+```text
+http://127.0.0.1:5001/
+```
+
+### The batch file closes immediately
+
+Open Command Prompt in the project root and run the script manually so error messages remain visible:
+
+```bash
+play_reversi.bat
+```
+
+If needed, install dependencies first:
+
+```bash
+install_requirements.bat
+```
+
+## Testing
+
+Run the test suite with:
+
+```bash
+python -m pytest reversi/tests
+```
+
+## Project Structure
+
+```text
+reversi/
+  backend/
+    api/
+      routes.py
+    engine/
+      board.py
+      game_state.py
+      simulator.py
+      strategies/
+  frontend/
+    static/
+      app.js
+      lab.js
+      preferences.js
+      settings.js
+      style.css
+    templates/
+      base.html
+      home.html
+      play.html
+      lab.html
+      settings.html
+  docs/
+  tests/
+run.py
+wsgi.py
+requirements.txt
+install_requirements.bat
+play_reversi.bat
+```
+
+## Screenshots
+
+### Home / Landing Page
+
+The Home page introduces the project as more than a playable Reversi clone. It presents the app as a multi-surface product with gameplay, AI benchmarking, and analytics-oriented exploration.
+
+![Home Landing Page](assets/screenshots/home/homepage.png)
+
+*Portfolio-style landing page with direct navigation to gameplay, simulation benchmarking, and settings.*
+
+![Home Page Overview](assets/screenshots/home/homepage2.png)
+
+*Home page overview presenting the product structure, AI ladder, and core analytical value of the project.*
+
+![About the Project Section](assets/screenshots/home/aboutme.png)
+
+*Project motivation section explaining the engineering, analytics, and product perspective behind the build.*
+
+### Play Page
+
+Screenshot placeholder for the live Reversi board and match interface.
+
+<!-- TODO: Replace with a real screenshot -->
+
+### Post-Game Analytics
+
+Screenshot placeholder for the post-game summary and progression charts on the Play page.
+
+<!-- TODO: Replace with a real screenshot -->
+
+### Simulation Lab
+
+Screenshot placeholder for the benchmark runner, current-run metrics, and remembered comparison workspace.
+
+<!-- TODO: Replace with a real screenshot -->
+
+### Matchup Matrix / Representative Breakdown
+
+Screenshot placeholder for the remembered-run matrix and representative-game drill-down.
+
+<!-- TODO: Replace with a real screenshot -->
+
+## Documentation
+
+Additional project notes are available in:
+
+- `reversi/docs/architecture.md`
+- `reversi/docs/api.md`
+
+## Future Improvements
+
+- richer strategy presets and experimental configuration controls
+- exportable benchmark summaries
+- tournament or ladder mode for repeated AI competitions
+- deeper visual analytics in the Lab
+- packaged desktop-style release for easier local distribution
+
+## Status
+
+- feature-complete enough for local use and portfolio presentation
+- structured for further analytics and AI experimentation
+- ready for GitHub upload with local Windows launch helpers included
