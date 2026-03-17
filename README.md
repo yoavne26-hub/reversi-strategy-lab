@@ -1,105 +1,79 @@
 # Reversi AI Lab
 
-A browser-based Reversi web application built as more than a simple board-game clone.  
-This project combines playable strategy gameplay, multiple AI opponents, post-game analysis, and a dedicated Simulation Lab for AI-vs-AI benchmarking and matchup comparison.
+Reversi AI Lab started as a browser version of a classic strategy game, but it quickly became something bigger.
 
-It is designed as a portfolio-quality engineering project: part strategy game, part AI sandbox, and part analytics product.
+I did not want to build just another playable Reversi clone. I wanted to turn the game into a small environment for strategy, experimentation, and analysis — something you can play, inspect, compare, and learn from. The result is a web application that combines a full Reversi experience with multiple AI opponents, post-game analytics, and a dedicated Simulation Lab for AI-vs-AI benchmarking.
+
+At its core, this project sits at the intersection of gameplay, analytics, and product thinking. It is part strategy game, part AI sandbox, and part data-driven interface.
 
 ## Overview
 
-Reversi AI Lab is a Python Flask + vanilla JavaScript application that brings several layers of the same problem space into one product:
+The project is built with Python, Flask, and vanilla JavaScript, and is structured as a multi-page product rather than a single game screen. It supports regular gameplay, strategy benchmarking, replayable finished matches, and move-by-move analysis inside one connected experience.
 
-- a clean browser-based Reversi experience
-- local Player vs Player and Player vs AI gameplay
-- multiple AI strategies with distinct difficulty levels
-- post-game analytics and move progression charts
-- a Simulation Lab for repeated headless benchmark runs
-- remembered benchmark comparisons, dominance views, and pairwise matchup analysis
+What makes it interesting to me is that the same system can be approached from different angles. You can open it as a game, as a strategy comparison tool, or as an interface for exploring how different AI approaches behave under the same rules.
 
-The result is a project that is useful from multiple angles: it can be played as a game, inspected as an AI experiment, and reviewed as a product-focused analytics interface.
+## What the Project Includes
 
-## Why This Project Is Interesting
+### Gameplay
 
-This project stands out because it does not stop at implementing Reversi correctly. It uses the game as a controlled environment for strategy comparison, simulation, and explainable analysis.
+The Play page supports both local PvP and Player vs AI matches in a browser-based interface. The full game loop is handled end to end, including legal move detection, pass handling, score tracking, game-end logic, move history, replay support, and undo where appropriate.
 
-Key strengths:
+Rather than treating the match as something that disappears once it ends, the app keeps the finished game meaningful. A completed match can be replayed, reviewed, and analyzed instead of just restarted.
 
-- It blends game logic with AI experimentation rather than treating AI as a single opaque opponent.
-- It exposes strategy behavior through measurable outputs such as benchmark summaries, remembered comparisons, and representative-game analysis.
-- It includes user-facing analytics, not just engine-side calculations.
-- It reflects both engineering rigor and product thinking: gameplay, analysis, and instructional UX are all treated as first-class parts of the experience.
+### AI Opponents
 
-## Feature Breakdown
+The built-in AI ladder is designed to feel like a progression rather than a single computer mode.
 
-### Core Gameplay
+- **Easy — Random**  
+  A simple baseline opponent that chooses any legal move.
 
-- Full browser-based Reversi play flow
-- Local Player vs Player mode
-- Player vs AI mode
-- Legal-move handling, pass logic, score tracking, and correct game-end detection
-- Move history and replay support
-- Undo support where appropriate
-- Multi-page app shell with dedicated Home, Play, Simulation Lab, and Settings pages
+- **Medium — Greedy**  
+  Focuses on immediately strong-looking moves, especially corners and local gain.
 
-### AI & Strategy
+- **Advanced — Hybrid**  
+  Uses a broader heuristic mix that weighs positional strength more carefully.
 
-- Multiple AI difficulty levels backed by distinct strategies:
-  - Easy: `RandomStrategy`
-  - Medium: `GreedyCornerStrategy`
-  - Advanced: `HybridHeuristicStrategy`
-  - Hard: `MinimaxStrategy`
-- Strategy tie-breaking behavior that remains deterministic only when evaluation is not tied
-- Headless AI-vs-AI simulation utilities for single games and repeated benchmark runs
-- Fair color rotation across benchmark batches
+- **Hard — Minimax**  
+  A search-based opponent built to offer the strongest built-in challenge.
+
+Behind the scenes, the project also supports headless AI-vs-AI simulations for repeated benchmarking. That made it possible to go beyond “which bot feels stronger” and actually measure matchup behavior across batches of games.
 
 ### Post-Game Analytics
 
-- Match summary after completed games
-- Move history and replay-compatible analysis data
-- Progression metrics serialized from the backend
-- Post-game charting on the Play page, including:
-  - board control over time
-  - weighted flips over time
-  - flips per move
-  - flip ratio over time
-- Highlight rows and compact side-average summaries for finished games
+One of the main ideas behind the project was that finished matches should be inspectable.
+
+After a game ends, the Play page exposes a post-game analysis layer with summary metrics and progression charts. Instead of only showing the final score, the app tracks how the match developed over time through views such as:
+
+- board control over time
+- weighted flips over time
+- flips per move
+- flip ratio over time
+
+This turns each game into something that can be studied, not just completed.
 
 ### Simulation Lab
 
-- Benchmark runner with async progress updates
-- Honest ETA estimation based on completed games
-- Single-run benchmark verdicts and metric summaries
-- Remembered benchmark runs stored in session memory
-- Comparison graphs across remembered runs
-- Dominance summary built from remembered measured results
-- Pairwise matchup matrix / heatmap for measured runs only
-- Representative-game breakdown for a selected remembered benchmark run
-- Tooltip-supported comparison views for matrix cells and graphs
+The Simulation Lab is the part that pushed the project beyond a standard game build.
 
-### UX / Product Polish
+It allows repeated AI-vs-AI benchmark runs directly in the browser, with progress updates, current-run summaries, and remembered comparisons across runs from the same session. The Lab makes it possible to compare strategies in a more structured way through chart views, dominance summaries, matchup matrices, and one representative measured game per remembered run.
 
-- Multi-page product shell instead of a single overloaded screen
-- Dedicated settings and how-to-play surface
-- Local preference persistence for key frontend options
-- Dashboard-style Lab layout with current-run metrics, remembered comparison workspace, and drill-down analysis
-- Portfolio-oriented landing page and product framing
+In other words, instead of asking “which AI is better?” in a vague way, the project gives you a workspace for testing that question.
 
-## AI Ladder
+### Product and UX Layer
 
-The built-in AI ladder is meant to serve both players and analysis:
+I wanted the app to feel like a real small product, not a classroom demo hidden behind one page.
 
-- **Easy / Random**: useful for basic play and low-pressure experimentation
-- **Medium / Greedy**: focuses on immediate gain and tactical corner opportunities
-- **Advanced / Hybrid**: stronger heuristic play with more strategic weighting
-- **Hard / Minimax**: search-based opponent for the strongest built-in challenge
+That is why the project is structured around separate surfaces for Home, Play, Simulation Lab, and Settings. It includes onboarding guidance, local preference persistence, AI difficulty explanations, replay tools, and metric interpretation support inside the interface itself.
 
-## About the Project
+That product layer matters to me just as much as the engine underneath it. A technically strong system becomes much more valuable when it is also readable, explorable, and usable.
 
-Strategy games are a strong sandbox for algorithms, heuristics, and evaluation logic because they create clear rules, measurable outcomes, and meaningful tradeoffs. Reversi is especially useful in that regard: positional value, mobility, timing, and local tactics all matter, which makes it a good environment for experimenting with both AI behavior and user-facing explanation.
+## Why I Built It
 
-I built this project as a way to combine several interests in one system: AI, analytics, optimization, product design, and technical clarity. The goal was not only to make the game playable, but to make the system inspectable. That meant treating benchmarks, comparison tooling, and post-game analysis as product features rather than internal developer utilities.
+Strategy games are a great sandbox for algorithms and evaluation logic because they create clear rules, measurable outcomes, and meaningful tradeoffs. Reversi is especially interesting in that sense because position, timing, mobility, and tactical swings all matter at once.
 
-From a portfolio perspective, the project reflects the kind of work I am most interested in: systems that are technically rich under the hood, but still shaped around usability, interpretation, and clear product structure.
+I built this project as a way to bring several interests together in one system: AI, analytics, optimization, product design, and technical clarity. The goal was not only to make the game work correctly, but to make the system understandable from the outside. That meant treating benchmarks, comparison tooling, and post-game analysis as real features rather than developer-only extras.
+
+From a portfolio perspective, this is the kind of work I want to keep doing: systems that are technically rich under the hood, but still shaped around usability, interpretation, and clear structure.
 
 ## Tech Stack
 
@@ -110,7 +84,7 @@ From a portfolio perspective, the project reflects the kind of work I am most in
 - **CSS**
 - **Vanilla JavaScript**
 - **pytest**
-- **Custom game engine and strategy heuristics**
+- **Custom game engine and AI strategy heuristics**
 
 ## Local Setup
 
@@ -164,7 +138,7 @@ play_reversi.bat
 
 ### Home / Landing Page
 
-The Home page introduces the project as more than a playable Reversi clone. It presents the app as a multi-surface product with gameplay, AI benchmarking, and analytics-oriented exploration.
+The Home page introduces the app as more than a playable Reversi clone. It frames the project as a connected product with gameplay, benchmarking, and analytics working together.
 
 ![Home Landing Page](ReversiGame/assets/screenshots/home/homepage.png)
 
@@ -172,7 +146,7 @@ The Home page introduces the project as more than a playable Reversi clone. It p
 
 ![Home Page Overview](ReversiGame/assets/screenshots/home/homepage2.png)
 
-*Home page overview presenting the product structure, AI ladder, and core analytical value of the project.*
+*Home page overview presenting the product structure, AI ladder, and analytical focus of the project.*
 
 ![About the Project Section](ReversiGame/assets/screenshots/home/aboutme.png)
 
@@ -180,7 +154,7 @@ The Home page introduces the project as more than a playable Reversi clone. It p
 
 ### Play Page
 
-The Play page covers the full gameplay loop: match setup, live board interaction, move tracking, and replay support for completed games.
+The Play page covers the full gameplay loop: setup, live board interaction, move tracking, and replay support for completed games.
 
 ![Play Setup Screen](ReversiGame/assets/screenshots/play/play.png)
 
@@ -196,7 +170,7 @@ The Play page covers the full gameplay loop: match setup, live board interaction
 
 ### Post-Game Analytics
 
-Completed games transition into a post-game analysis surface with summary metrics and progression charts, turning each match into something that can be reviewed rather than only observed.
+Finished games transition into an analysis surface with summary metrics and progression charts, making each match something that can be reviewed rather than only observed.
 
 ![Completed Match View](ReversiGame/assets/screenshots/play/playcomplete.png)
 
@@ -208,7 +182,7 @@ Completed games transition into a post-game analysis surface with summary metric
 
 ### Simulation Lab
 
-The Simulation Lab turns the project into an AI experimentation workspace rather than only a playable board game. It supports repeated browser-based benchmark runs, live progress tracking, remembered comparisons, and matchup inspection tools.
+The Simulation Lab turns the project into an experimentation workspace rather than only a game. It supports repeated benchmark runs, live progress tracking, and structured comparison between strategies.
 
 ![Simulation Lab Overview](ReversiGame/assets/screenshots/lab/lab.png)
 
@@ -224,7 +198,7 @@ The Simulation Lab turns the project into an AI experimentation workspace rather
 
 ### Matchup Matrix / Representative Breakdown
 
-Remembered benchmark runs can be compared side by side through summary rankings, chart views, pairwise matchup inspection, and one representative measured game per run.
+Remembered benchmark runs can be reviewed side by side through summary rankings, chart views, pairwise matchup inspection, and one representative measured game per run.
 
 ![Remembered Comparison Workspace](ReversiGame/assets/screenshots/lab/multiruncompare.png)
 
@@ -240,7 +214,7 @@ Remembered benchmark runs can be compared side by side through summary rankings,
 
 ### Settings & How to Play
 
-The Settings page gives the project a more complete product surface by combining local gameplay preferences with onboarding guidance and AI difficulty explanations.
+The Settings page rounds out the product surface by combining local gameplay preferences with onboarding guidance and AI difficulty explanations.
 
 ![Settings and How to Play](ReversiGame/assets/screenshots/settings/settings.png)
 
@@ -255,6 +229,8 @@ Additional project notes are available in:
 
 ## Future Improvements
 
+There are still several directions I would like to take this project.
+
 - richer strategy presets and experimental configuration controls
 - exportable benchmark summaries
 - tournament or ladder mode for repeated AI competitions
@@ -262,5 +238,3 @@ Additional project notes are available in:
 - persistent benchmark storage through CSV export or relational SQL database integration
 - predictive modeling for estimating game outcomes based on strategy pairing and starting side
 - packaged desktop-style release for easier local distribution
-
-
