@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block title %}Reversi | Home{% endblock %}
+
+{% block content %}
+  <section class="screen page-screen">
+    <section class="home-hero">
+      <div class="home-hero-copy">
+        <p class="eyebrow">Strategy Game + Analytics Portfolio Project</p>
+        <h1>Reversi Built as a Playable Product, Not Just a Board Demo</h1>
+        <p class="subtitle">A browser-based Reversi experience that combines polished gameplay, an AI difficulty ladder, benchmark tooling, and post-game analytics into one cohesive product shell.</p>
+        <p class="home-hero-note">The project is designed to showcase more than game logic: it brings together strategy, experimentation, simulation, and product-style UX in a format that is easy to explore and easy to explain.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="{{ url_for('web.play') }}">Play Game</a>
+          <a class="btn" href="{{ url_for('web.lab') }}">Open Simulation Lab</a>
+          <a class="btn btn-ghost" href="{{ url_for('web.settings') }}">Settings &amp; How to Play</a>
+        </div>
+      </div>
+
+      <aside class="page-card home-hero-panel">
+        <p class="eyebrow">Project Snapshot</p>
+        <h2>What the app already supports</h2>
+        <div class="home-stat-grid">
+          <div class="home-stat">
+            <strong>4 pages</strong>
+            <span>Home, Play, Lab, and Settings</span>
+          </div>
+          <div class="home-stat">
+            <strong>4 AI levels</strong>
+            <span>Random, Greedy, Hybrid, and Minimax</span>
+          </div>
+          <div class="home-stat">
+            <strong>2 analysis modes</strong>
+            <span>Live post-game breakdowns and headless benchmarks</span>
+          </div>
+          <div class="home-stat">
+            <strong>Move analytics</strong>
+            <span>Progression metrics, summaries, and representative games</span>
+          </div>
+        </div>
+        <div class="home-highlight-list">
+          <span>Playable browser experience</span>
+          <span>Benchmark and comparison workflow</span>
+          <span>Portfolio-ready analytics surface</span>
+        </div>
+      </aside>
+    </section>
+
+    <section class="page-section">
+      <div class="section-head">
+        <p class="eyebrow">Project Scope</p>
+        <h2>What this project is</h2>
+        <p>A strategy game product built around three connected surfaces: direct play, structured AI benchmarking, and clear instructional onboarding.</p>
+      </div>
+      <div class="page-grid page-grid-3">
+        <article class="page-card home-feature-card">
+          <p class="eyebrow">Play</p>
+          <h3>Browser-first Reversi gameplay</h3>
+          <p>Play locally or against AI with a focused board experience, replay support, undo where appropriate, and a post-game analysis panel that makes finished matches worth reviewing.</p>
+          <a class="btn btn-primary" href="{{ url_for('web.play') }}">Go to Play</a>
+        </article>
+
+        <article class="page-card home-feature-card">
+          <p class="eyebrow">Simulation Lab</p>
+          <h3>Benchmark and compare strategy matchups</h3>
+          <p>Run repeated AI-vs-AI simulations, compare remembered benchmark runs, inspect matchup dominance, and drill into one representative measured game to see how a result evolved move by move.</p>
+          <a class="btn" href="{{ url_for('web.lab') }}">Open Lab</a>
+        </article>
+
+        <article class="page-card home-feature-card">
+          <p class="eyebrow">Settings &amp; Guide</p>
+          <h3>Settings and onboarding in one place</h3>
+          <p>Keep themes, animation preferences, default difficulty, legal-move hints, and a concise rules guide together so the product stays approachable without interrupting the play flow.</p>
+          <a class="btn" href="{{ url_for('web.settings') }}">Open Settings</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <div class="section-head">
+        <p class="eyebrow">AI Ladder</p>
+        <h2>Choose the style of opponent you want to face</h2>
+      </div>
+      <div class="page-grid page-grid-4 home-ai-grid">
+        <article class="page-card compact-card home-ai-card">
+          <h3>Easy</h3>
+          <p>Random</p>
+          <small>Best for rules practice and low-pressure experimentation.</small>
+        </article>
+        <article class="page-card compact-card home-ai-card">
+          <h3>Medium</h3>
+          <p>Greedy</p>
+          <small>Looks for immediate gain and corner pressure.</small>
+        </article>
+        <article class="page-card compact-card home-ai-card">
+          <h3>Advanced</h3>
+          <p>Hybrid</p>
+          <small>Uses stronger heuristics to avoid obvious traps and play more strategically.</small>
+        </article>
+        <article class="page-card compact-card home-ai-card">
+          <h3>Hard</h3>
+          <p>Minimax</p>
+          <small>Search-driven play for the strongest built-in challenge.</small>
+        </article>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <div class="section-head">
+        <p class="eyebrow">Why It Stands Out</p>
+        <h2>A game project with real analytical depth</h2>
+      </div>
+      <div class="page-grid page-grid-2">
+        <article class="page-card">
+          <h3>Strategy comparison, not only strategy play</h3>
+          <p>The Lab makes this more than a playable board. Matchups can be benchmarked, compared across remembered runs, and reviewed through dominance summaries and measured pairwise relationships.</p>
+        </article>
+        <article class="page-card">
+          <h3>Move-by-move analysis already built in</h3>
+          <p>The engine tracks progression metrics and post-game summaries, which supports charted control shifts, flip patterns, and representative-game inspection instead of only showing a final score.</p>
+        </article>
+        <article class="page-card">
+          <h3>Product thinking behind the interface</h3>
+          <p>The app is structured as a real multi-page product shell with distinct surfaces for play, experimentation, and guidance, rather than a single overloaded screen.</p>
+        </article>
+        <article class="page-card">
+          <h3>Built to be explainable and extensible</h3>
+          <p>Simulation, analytics, and UI concerns are separated cleanly enough that the project can evolve into richer dashboards and stronger analysis features without rewriting the core experience.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="page-section">
+      <div class="section-head">
+        <p class="eyebrow">About Me</p>
+        <h2>Why I built this project</h2>
+      </div>
+      <div class="page-grid page-grid-2">
+        <article class="page-card">
+          <h3>Industrial Engineering, analytics, and product perspective</h3>
+          <p>I come from an Industrial Engineering and Management background, with a strong interest in algorithms, AI, analytics, optimization, and systems thinking. I am especially drawn to products that turn complex logic into something clear, usable, and decision-oriented.</p>
+          <p>This project reflects that mindset: it is not only about implementing Reversi correctly, but about designing the surrounding product surface so strategy behavior can be explored, compared, and understood.</p>
+        </article>
+        <article class="page-card">
+          <h3>A portfolio piece that combines play, experimentation, and software design</h3>
+          <p>Reversi gave me a compact but meaningful space to bring several interests together: game logic, AI strategy design, benchmarking, analytics, and interface polish. The goal was to build something technically strong enough to stand up as an engineering project, while still feeling approachable and intentional as a user-facing product.</p>
+          <p>That combination matters to me. I enjoy building systems that are rigorous under the hood, but also shaped by product thinking, clarity, and a good user experience.</p>
+        </article>
+      </div>
+    </section>
+  </section>
+{% endblock %}

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}Reversi{% endblock %}</title>
+  <script>
+    (() => {
+      try {
+        const raw = localStorage.getItem("reversiSettings");
+        const parsed = raw ? JSON.parse(raw) : {};
+        const theme = ["classic", "dark", "neon"].includes(parsed.theme) ? parsed.theme : "classic";
+        const animationSpeed = ["slow", "normal", "fast"].includes(parsed.animationSpeed) ? parsed.animationSpeed : "normal";
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.dataset.animationSpeed = animationSpeed;
+      } catch (error) {
+        document.documentElement.dataset.theme = "classic";
+        document.documentElement.dataset.animationSpeed = "normal";
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="site-nav-wrap">
+      <nav class="site-nav" aria-label="Primary">
+        <a class="site-brand" href="{{ url_for('web.home') }}">Reversi</a>
+        <div class="site-nav-links">
+          <a href="{{ url_for('web.home') }}" class="site-nav-link {% if page_name == 'home' %}is-active{% endif %}">Home</a>
+          <a href="{{ url_for('web.play') }}" class="site-nav-link {% if page_name == 'play' %}is-active{% endif %}">Play</a>
+          <a href="{{ url_for('web.lab') }}" class="site-nav-link {% if page_name == 'lab' %}is-active{% endif %}">Simulation Lab</a>
+          <a href="{{ url_for('web.settings') }}" class="site-nav-link {% if page_name == 'settings' %}is-active{% endif %}">Settings &amp; How to Play</a>
+        </div>
+      </nav>
+    </header>
+    {% block content %}{% endblock %}
+  </div>
+  <script src="{{ url_for('static', filename='preferences.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

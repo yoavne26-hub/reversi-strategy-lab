@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}Reversi | Settings & How to Play{% endblock %}
+
+{% block content %}
+  <section class="screen page-screen">
+    <div class="page-hero">
+      <p class="eyebrow">Settings &amp; Help</p>
+      <h1>Set Your Defaults and Learn the Board</h1>
+      <p class="subtitle">Tune a few local preferences for how Reversi feels in this browser, then use the guide below as a quick reference for rules, replay tools, and the AI ladder.</p>
+    </div>
+
+    <div class="page-grid page-grid-2 settings-grid">
+      <article class="page-card settings-panel">
+        <p class="eyebrow">Local Preferences</p>
+        <h2>Game Settings</h2>
+        <p class="settings-copy">These settings are saved in this browser with local storage only. They are applied locally and do not require an account.</p>
+
+        <div class="settings-stack">
+          <section class="settings-block">
+            <div class="settings-block-head">
+              <h3>Show Legal Moves</h3>
+              <p>Display move hints on the board for currently legal placements.</p>
+            </div>
+            <label class="switch-row" for="settingsShowLegalMoves">
+              <span>Visible legal-move markers</span>
+              <span class="switch">
+                <input id="settingsShowLegalMoves" type="checkbox">
+                <span class="switch-slider"></span>
+              </span>
+            </label>
+          </section>
+
+          <section class="settings-block">
+            <div class="settings-block-head">
+              <h3>Animation Speed</h3>
+              <p>Adjust board motion and transition speed for a calmer or snappier feel.</p>
+            </div>
+            <div id="settingsAnimationSpeed" class="choice-group choice-group-3" role="radiogroup" aria-label="Animation speed">
+              <button type="button" class="choice" data-value="slow" aria-pressed="false">
+                <span class="choice-title">Slow</span>
+                <span class="choice-sub">More deliberate motion</span>
+              </button>
+              <button type="button" class="choice" data-value="normal" aria-pressed="false">
+                <span class="choice-title">Normal</span>
+                <span class="choice-sub">Balanced default</span>
+              </button>
+              <button type="button" class="choice" data-value="fast" aria-pressed="false">
+                <span class="choice-title">Fast</span>
+                <span class="choice-sub">Quicker feedback</span>
+              </button>
+            </div>
+          </section>
+
+          <section class="settings-block">
+            <div class="settings-block-head">
+              <h3>Theme</h3>
+              <p>Change the app palette without affecting gameplay rules or strategy behavior.</p>
+            </div>
+            <div id="settingsTheme" class="choice-group choice-group-3" role="radiogroup" aria-label="Theme">
+              <button type="button" class="choice" data-value="classic" aria-pressed="false">
+                <span class="choice-title">Classic</span>
+                <span class="choice-sub">Green tournament board</span>
+              </button>
+              <button type="button" class="choice" data-value="dark" aria-pressed="false">
+                <span class="choice-title">Dark</span>
+                <span class="choice-sub">Cooler slate contrast</span>
+              </button>
+              <button type="button" class="choice" data-value="neon" aria-pressed="false">
+                <span class="choice-title">Neon</span>
+                <span class="choice-sub">Bright arcade energy</span>
+              </button>
+            </div>
+          </section>
+
+          <section class="settings-block">
+            <div class="settings-block-head">
+              <h3>Default Difficulty</h3>
+              <p>Preselect the AI level shown on the Play page when you start a new computer match.</p>
+            </div>
+            <div id="settingsDefaultDifficulty" class="choice-group choice-group-4" role="radiogroup" aria-label="Default difficulty">
+              <button type="button" class="choice" data-value="easy" aria-pressed="false">
+                <span class="choice-title">Easy</span>
+              </button>
+              <button type="button" class="choice" data-value="medium" aria-pressed="false">
+                <span class="choice-title">Medium</span>
+              </button>
+              <button type="button" class="choice" data-value="advanced" aria-pressed="false">
+                <span class="choice-title">Advanced</span>
+              </button>
+              <button type="button" class="choice" data-value="hard" aria-pressed="false">
+                <span class="choice-title">Hard</span>
+              </button>
+            </div>
+          </section>
+        </div>
+
+        <p id="settingsStatus" class="settings-status" aria-live="polite">Loading saved preferences...</p>
+      </article>
+
+      <div class="settings-stack">
+        <article class="page-card">
+          <p class="eyebrow">AI Ladder</p>
+          <h2>Difficulty Overview</h2>
+          <div class="settings-guide-list">
+            <div class="settings-guide-item">
+              <h3>Easy - Random</h3>
+              <p>Chooses a legal move without deeper planning, making it the most forgiving opponent.</p>
+            </div>
+            <div class="settings-guide-item">
+              <h3>Medium - Greedy</h3>
+              <p>Looks for immediately strong-looking moves, especially corners, but does not search ahead.</p>
+            </div>
+            <div class="settings-guide-item">
+              <h3>Advanced - Hybrid</h3>
+              <p>Uses a richer heuristic that blends board weights, mobility, corners, and risky-square avoidance.</p>
+            </div>
+            <div class="settings-guide-item">
+              <h3>Hard - Minimax</h3>
+              <p>Searches future positions with the engine evaluator, so it is slower but usually the toughest matchup.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="page-card">
+          <p class="eyebrow">How to Play</p>
+          <h2>Rules at a Glance</h2>
+          <div class="settings-guide-list">
+            <div class="settings-guide-item">
+              <h3>Objective</h3>
+              <p>Finish the game with more discs of your color on the board than your opponent when no more legal moves remain for either side.</p>
+            </div>
+            <div class="settings-guide-item">
+              <h3>What Makes a Move Legal</h3>
+              <p>A move is legal only if your new disc flips at least one opponent disc. To do that, your placed disc must bracket one or more opposing discs in a straight line with another disc of your own color.</p>
+            </div>
+            <div class="settings-guide-item">
+              <h3>Straight Lines Only</h3>
+              <p>Brackets can happen horizontally, vertically, or diagonally. If the line is broken, or if no opponent discs are trapped between your discs, the move is illegal.</p>
+            </div>
+            <div class="settings-guide-item">
+              <h3>How Flipping Works</h3>
+              <p>Every opponent disc trapped between the disc you place and another one of your discs flips immediately. A single move can flip discs in several directions at once.</p>
+            </div>
+            <div class="settings-guide-item">
+              <h3>If No Discs Flip</h3>
+              <p>If placing a disc would not flip anything, that square is not allowed. Legal-move hints on the Play page mark only the squares that satisfy this rule.</p>
+            </div>
+            <div class="settings-guide-item">
+              <h3>Pass Rule</h3>
+              <p>If it is your turn and you have no legal move, you must pass. The game handles that automatically and returns play to your opponent.</p>
+            </div>
+            <div class="settings-guide-item">
+              <h3>Game End and Winner</h3>
+              <p>The game ends when neither player can move. The winner is the player with more discs on the board, and equal totals produce a draw.</p>
+            </div>
+            <div class="settings-guide-item">
+              <h3>Undo and Replay</h3>
+              <p>Local PvP can enable undo and replay. Replay mode steps through stored history without changing the actual finished game record.</p>
+            </div>
+            <div class="settings-guide-item">
+              <h3>Simulation Lab</h3>
+              <p>The Lab runs repeated AI-vs-AI benchmarks, alternates colors for fairness, and summarizes the matchup with scores, rates, and charts.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="page-card">
+          <p class="eyebrow">Beginner Strategy</p>
+          <h2>First Things to Look For</h2>
+          <div class="settings-guide-list">
+            <div class="settings-guide-item">
+              <h3>Corners Matter</h3>
+              <p>Corner discs can never be flipped, so taking a corner is usually one of the strongest moves available.</p>
+            </div>
+            <div class="settings-guide-item">
+              <h3>Risky Squares</h3>
+              <p>Squares next to corners, especially x-squares and c-squares, can be dangerous because they often give the opponent an easy corner afterward.</p>
+            </div>
+            <div class="settings-guide-item">
+              <h3>More Flips Is Not Always Better</h3>
+              <p>A move that flips many discs right away may open strong replies. Sometimes the better move flips fewer discs but leaves a safer position.</p>
+            </div>
+            <div class="settings-guide-item">
+              <h3>Limit Opponent Mobility</h3>
+              <p>Strong play often comes from reducing how many legal moves your opponent has next, even if your immediate score gain looks smaller.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='settings.js') }}"></script>
+{% endblock %}
